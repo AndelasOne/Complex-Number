@@ -1,0 +1,3 @@
+C:/Users/Gm7Na/ownCloud/Programming/C_Lion/C++_Vorlesung/Templates/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Gm7Na/ownCloud/Programming/C_Lion/C++_Vorlesung/Templates/cmake-build-debug/CMakeFiles/Templates.dir
+C:/Users/Gm7Na/ownCloud/Programming/C_Lion/C++_Vorlesung/Templates/cmake-build-debug/CMakeFiles/rebuild_cache.dir
