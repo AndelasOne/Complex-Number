@@ -80,37 +80,55 @@ ComplexNumber<T3, T4> operator+(ComplexNumber<T1, T2> const & c1, ComplexNumber<
     return c3;
 }
 
-template <typename T1, typename T2, std::size_t _size>
+template <typename T,  std::size_t _size>
 class ConstSizeVector{
 public:
-        explicit ConstSizeVector(std::array<ComplexNumber<T1, T2>, _size> vector);
+        explicit ConstSizeVector(std::array<T, _size> vector = {});
         size_t getSize() const;
 
-        ComplexNumber<T1, T2> &operator[](size_t i);
+       T &operator[](size_t i);
+       const T &operator[](size_t i)const;
 
 private:
-        std::array<ComplexNumber<T1, T2>, _size> _vector_complex;
-
+        std::array<T, _size> _vector;
     };
 
-
-
-
-template<typename T1, typename T2, std::size_t size>
- size_t ConstSizeVector<T1, T2, size>::getSize() const {
-    return size;
-}
-
-template<typename T1, typename T2, std::size_t _size>
-ConstSizeVector<T1, T2, _size>::ConstSizeVector(std::array<ComplexNumber<T1, T2>, _size> vector) :
-_vector_complex(vector) {
+template<typename T, std::size_t _size>
+ConstSizeVector<T, _size>::ConstSizeVector(std::array<T, _size> vector) :
+_vector(vector)
+{
     std::cout << "Constructor of ConstSizeVector used!" << std::endl;
 }
 
-template<typename T1, typename T2, std::size_t _size>
-ComplexNumber<T1, T2> & ConstSizeVector<T1, T2, _size>::operator[](size_t i) {
-        return this[i];
+
+template<typename T, std::size_t _size>
+ size_t ConstSizeVector<T, _size>::getSize() const {
+    return _size;
 }
 
 
+
+template<typename T, std::size_t _size>
+T & ConstSizeVector<T, _size>::operator[](size_t i) {
+        return _vector[i];
+}
+// const Function for concat function which needs two const vectors
+template<typename T, std::size_t _size>
+const T & ConstSizeVector<T, _size>::operator[](size_t i) const{
+    return _vector[i];
+}
+
+// function which connects two vectors into a new one
+
+template <typename T, size_t n, size_t m>
+ConstSizeVector<T, n+m> concat(const ConstSizeVector<T, n> & v1, const ConstSizeVector<T, m> & v2){
+    ConstSizeVector<T, n+m> newVector;
+    for(size_t element1 = 0; element1 < n; element1++){
+        newVector[element1]=v1[element1];
+    }
+    for(size_t element2 = 0; element2 < m; element2++){
+        newVector[element2+n]=v2[element2];
+    }
+    return newVector;
+}
 #endif //TEMPLATES_COMPLEXNUMBER_H
