@@ -5,6 +5,7 @@
 #ifndef TEMPLATES_COMPLEXNUMBER_H
 #define TEMPLATES_COMPLEXNUMBER_H
 # include <iostream>
+#include <array>
 
 template <typename T1, typename T2 = T1>
 class ComplexNumber {
@@ -78,4 +79,38 @@ ComplexNumber<T3, T4> operator+(ComplexNumber<T1, T2> const & c1, ComplexNumber<
     c3.setReal(c1.getReal()+c2.getReal());
     return c3;
 }
+
+template <typename T1, typename T2, std::size_t _size>
+class ConstSizeVector{
+public:
+        explicit ConstSizeVector(std::array<ComplexNumber<T1, T2>, _size> vector);
+        size_t getSize() const;
+
+        ComplexNumber<T1, T2> &operator[](size_t i);
+
+private:
+        std::array<ComplexNumber<T1, T2>, _size> _vector_complex;
+
+    };
+
+
+
+
+template<typename T1, typename T2, std::size_t size>
+ size_t ConstSizeVector<T1, T2, size>::getSize() const {
+    return size;
+}
+
+template<typename T1, typename T2, std::size_t _size>
+ConstSizeVector<T1, T2, _size>::ConstSizeVector(std::array<ComplexNumber<T1, T2>, _size> vector) :
+_vector_complex(vector) {
+    std::cout << "Constructor of ConstSizeVector used!" << std::endl;
+}
+
+template<typename T1, typename T2, std::size_t _size>
+ComplexNumber<T1, T2> & ConstSizeVector<T1, T2, _size>::operator[](size_t i) {
+        return this[i];
+}
+
+
 #endif //TEMPLATES_COMPLEXNUMBER_H
